@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Inicio - Sistema Pitahaya</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="logo">SISTEMA PITAHAYA</div>
+
+    <ul class="menu">
+        <li><a href="inicio.html" data-section="inicio">Inicio</a></li>
+        <li><a href="mapa.html" data-section="mapa">Mapa</a></li>
+        <li><a href="#" data-section="productos">Bioproductos</a></li>
+        <li><a href="pedidos.html">Pedidos</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+
+        
+    </ul>
+
+    <button id="logoutBtn">Salir</button>
+</nav>
+
+<main class="contenido">
+
+    <!-- INICIO -->
+    <section id="inicio" class="seccion activa">
+        <h1>Bienvenido al Sistema Pitahaya</h1>
+        <p>Gestión biotecnológica, monitoreo y comercialización.</p>
+    </section>
+
+    <!-- MAPA -->
+    <section id="mapa" class="seccion">
+        <div id="map" style="height:400px;"></div>
+    </section>
+
+    <!-- PRODUCTOS -->
+    <section id="productos" class="seccion">
+        <div class="products-grid"></div>
+    </section>
+
+</main>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>

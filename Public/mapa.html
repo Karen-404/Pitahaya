@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Inicio - Sistema Pitahaya</title>
+<link rel="stylesheet" href="css/styles.css">
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<style>
+/* Solo por si no tienes estilos */
+#map {
+    height: 400px;
+    width: 100%;
+    border-radius: 10px;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="logo">SISTEMA PITAHAYA</div>
+
+    <ul class="menu">
+        <li><a href="iniciotm/">Inicio</a></li>
+        <li><a href="mapa.html" data-section="mapa">Mapa</a></li>
+        <li><a href="#" data-section="productos">Bioproductos</a></li>
+        <li><a href="pedidos.html">Pedidos</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+    </ul>
+
+    <button id="logoutBtn">Salir</button>
+</nav>
+
+<main class="contenido">
+
+    <!-- INICIO -->
+    <section id="inicio" class="seccion activa">
+        <h1>Bienvenido al Sistema Pitahaya</h1>
+        <p>Gestión biotecnológica, monitoreo y comercialización.</p>
+    </section>
+
+    <!-- MAPA -->
+<section id="mapa" class="seccion">
+    <h2>Mapa de Cultivos</h2>
+
+    <iframe
+        src="https://www.google.com/maps?q=-0.1807,-78.4678&z=13&output=embed"
+        width="100%"
+        height="400"
+        style="border:0; border-radius:10px;"
+        allowfullscreen=""
+        loading="lazy">
+    </iframe>
+</section>
+
+
+    <!-- PRODUCTOS -->
+    <section id="productos" class="seccion">
+        <div class="products-grid"></div>
+    </section>
+
+</main>
+
+<!-- Tu JS -->
+<script src="js/script.js"></script>
+
+</body>
+</html>
