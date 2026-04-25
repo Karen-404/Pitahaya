@@ -1,71 +1,138 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<title>Inicio - Sistema Pitahaya</title>
-<link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <title>Mapa - Sistema Pitahaya</title>
+    <link rel="stylesheet" href="css/styles.css">
 
-<!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
 
-<style>
-/* Solo por si no tienes estilos */
-#map {
-    height: 400px;
-    width: 100%;
-    border-radius: 10px;
-}
-</style>
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #2e7d32;
+            color: white;
+            padding: 10px 20px;
+        }
 
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        .menu li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .contenido {
+            padding: 20px;
+        }
+
+        iframe {
+            border-radius: 10px;
+        }
+
+        .chat-flotante {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .chat-boton {
+            background: #2e7d32;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .chat-container {
+            width: 250px;
+            height: 300px;
+            background: white;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+            display: none;
+            flex-direction: column;
+        }
+
+        .chat-container.activo {
+            display: flex;
+        }
+
+        .chat-box {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .chat-input {
+            display: flex;
+        }
+
+        .chat-input input {
+            flex: 1;
+        }
+    </style>
 </head>
+
 <body>
 
-<nav class="top-nav">
-    <div class="logo">SISTEMA PITAHAYA</div>
+    <nav class="top-nav">
+        <div class="logo">SISTEMA PITAHAYA</div>
 
-    <ul class="menu">
-        <li><a href="inicio.html">Inicio</a></li>
-        <li><a href="mapa.html" data-section="mapa">Mapa</a></li>
-        <li><a href="#" data-section="productos">Bioproductos</a></li>
-        <li><a href="pedidos.html">Pedidos</a></li>
-        <li><a href="perfil.html">Perfil</a></li>
-    </ul>
+        <ul class="menu">
+            <li><a href="inicio.html">Inicio</a></li>
+            <li><a href="mapa.html">Mapa</a></li>
+            <li><a href="bioproductos.html">Bioproductos</a></li>
+            <li><a href="pedidos.html">Pedidos</a></li>
+            <li><a href="perfil.html">Perfil</a></li>
+            <li><a href="tipos.html">Tipos</a></li>
+        </ul>
 
-    <button id="logoutBtn">Salir</button>
-</nav>
+        <button id="logoutBtn">Salir</button>
+    </nav>
 
-<main class="contenido">
+    <main class="contenido">
 
-    <!-- INICIO -->
-    <section id="inicio" class="seccion activa">
-        <h1>Bienvenido al Sistema Pitahaya</h1>
-        <p>Gestión biotecnológica, monitoreo y comercialización.</p>
-    </section>
+        <div class="mapa">
+        <h1>Mapa de Cultivos 🌱</h1>
 
-    <!-- MAPA -->
-<section id="mapa" class="seccion">
-    <h2>Mapa de Cultivos</h2>
+        <!-- MAPA FUNCIONAL -->
+        <iframe src="https://www.google.com/maps?q=-0.6357312,-77.0409702&output=embed" width="50%" height="400"
+            style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+        </div>
 
-    <iframe
-        src="https://www.google.com/maps?q=-0.1807,-78.4678&z=13&output=embed"
-        width="100%"
-        height="400"
-        style="border:0; border-radius:10px;"
-        allowfullscreen=""
-        loading="lazy">
-    </iframe>
-</section>
+        <br><br>
 
+    </main>
 
-    <!-- PRODUCTOS -->
-    <section id="productos" class="seccion">
-        <div class="products-grid"></div>
-    </section>
+    <!-- CHAT -->
+    <div class="chat-flotante">
 
-</main>
+        <div class="chat-boton" onclick="toggleChat()">
+            🤖
+        </div>
 
-<!-- Tu JS -->
-<script src="js/script.js"></script>
+        <div class="chat-container" id="chatContainer">
+            <div id="chatBox" class="chat-box"></div>
+
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Escribe...">
+                <button onclick="responder()">Enviar</button>
+            </div>
+        </div>
+    </div>
 
 </body>
+
 </html>

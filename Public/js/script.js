@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('userRole', usuarioValido.role || 'user');
                 localStorage.setItem('userName', usuarioValido.nombre);
 
-                
+
                 window.location.href = 'inicio.html';
             } else {
                 alert("❌ Usuario o contraseña incorrectos");
@@ -135,26 +135,199 @@ if (logoutBtn) {
     });
 }
 
-// =========================
-// MAPA CON UBICACIÓN REAL
-// =========================
-const mapFrame = document.getElementById('mapFrame');
 
-if (mapFrame) {
+document.addEventListener('DOMContentLoaded', () => {
+    // =========================
+    // MAPA (LA BELLEZA - ESPOCH)
+    // =========================
+    const mapContainer = document.getElementById('map');
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
+    if (mapContainer) {
 
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
+        // Coordenadas EXACTAS
+        const lat = -0.6357312;
+        const lon = -77.0409702;
 
-            // Cargar Google Maps con tu ubicación
-            mapFrame.src = `https://www.google.com/maps?q=${lat},${lon}&z=15&output=embed`;
+        window.miMapa = L.map('map').setView([lat, lon], 16);
 
-        }, () => {
-            mapFrame.src = "https://www.google.com/maps?q=-0.1807,-78.4678&z=13&output=embed";
-        });
-    } else {
-        mapFrame.src = "https://www.google.com/maps?q=-0.1807,-78.4678&z=13&output=embed";
+        // Mapa base
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(window.miMapa);
+
+        // Marcador principal
+        L.marker([lat, lon])
+            .addTo(window.miMapa)
+            .bindPopup("<b>Finca Experimental La Belleza 🌱</b><br>ESPOCH")
+            .openPopup();
+
+        // 🔥 AJUSTE IMPORTANTE (evita mapa gris)
+        setTimeout(() => {
+            window.miMapa.invalidateSize();
+        }, 300);
     }
+
+});
+//==================================
+//BOT ASISTENTE
+//=================================
+function responder() {
+    const input = document.getElementById("userInput");
+    const chat = document.getElementById("chatBox");
+
+    const texto = input.value.toLowerCase().trim();
+    if (texto === "") return;
+
+    // Mostrar mensaje usuario
+    chat.innerHTML += `<div class="mensaje usuario">${input.value}</div>`;
+
+    let respuesta = generarRespuesta(texto);
+
+    // Simular tiempo de respuesta (IA)
+    setTimeout(() => {
+        chat.innerHTML += `<div class="mensaje bot">${respuesta}</div>`;
+        chat.scrollTop = chat.scrollHeight;
+    }, 500);
+
+    input.value = "";
 }
+
+// 🔥 IA SIMULADA
+function generarRespuesta(texto) {
+
+    if (texto.includes("hola")) {
+        return "Hola 👋 ¿En qué puedo ayudarte sobre la pitahaya?";
+    }
+
+    if (texto.includes("precio")) {
+        return "El precio varía según el tipo. La pitahaya amarilla suele ser más costosa.";
+    }
+
+    if (texto.includes("beneficios")) {
+        return "La pitahaya es rica en fibra, vitamina C y antioxidantes 💪";
+    }
+
+    if (texto.includes("comprar") || texto.includes("pedido")) {
+        return "Puedes hacer tu pedido en la sección de consultas 🛒";
+    }
+
+    if (texto.includes("tipos")) {
+        return "Tenemos pitahaya roja, amarilla y blanca.";
+    }
+
+    if (texto.includes("ecuador")) {
+        return "Ecuador es uno de los principales exportadores de pitahaya 🌎";
+    }
+
+    if (texto.includes("gracias")) {
+        return "¡Con gusto! 😊";
+    }
+
+    // RESPUESTA POR DEFECTO
+    return "No entendí tu pregunta 🤔 Intenta preguntar sobre precios, beneficios o tipos.";
+}
+
+document.getElementById("userInput")
+    .addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+            responder();
+        }
+    });
+
+window.onload = () => {
+    const chat = document.getElementById("chatBox");
+    chat.innerHTML += `<div class="mensaje bot">Hola 👋 soy tu asistente de pitahaya ¿En qué puedo ayudarte?</div>`;
+};
+function toggleChat() {
+    const chat = document.getElementById("chatContainer");
+    chat.classList.toggle("oculto");
+}
+
+function toggleFicha(btn) {
+    const ficha = btn.nextElementSibling;
+    ficha.classList.toggle('oculto');
+}
+
+
+
+const buscador = document.getElementById('buscar');
+
+buscador.addEventListener('keyup', function() {
+    let filtro = buscador.value.toLowerCase();
+    let cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        let texto = card.innerText.toLowerCase();
+        card.style.display = texto.includes(filtro) ? '' : 'none';
+    });
+});
+
+// REDIRECCION
+function ir(pagina){
+    window.location.href = pagina;
+}
+
+
+
+/* =========================
+   DETECTAR TIPO DE PITAHAYA
+========================= */
+
+// Ejemplo de URLs:
+// tipos/roja.html
+// tipos/amarilla.html
+
+const ruta = window.location.pathname;
+const archivo = ruta.split("/").pop().replace(".html", "");
+
+/* =========================
+   DATOS DE CADA PITAHAYA
+========================= */
+
+const pitahayas = {
+
+    roja: {
+        nombre: "Pitahaya Roja",
+        imagen: "../img/pitahaya-roja.png"
+    },
+
+    rosa: {
+        nombre: "Pitahaya Rosa",
+        imagen: "../img/pitahaya-rosa.png"
+    },
+
+    amarilla: {
+        nombre: "Pitahaya Amarilla",
+        imagen: "../img/pitahaya-amarilla.png"
+    },
+
+    golden: {
+        nombre: "Pitahaya Golden",
+        imagen: "../img/pitahaya-golden.png"
+    }
+
+};
+
+/* =========================
+   CARGAR DATOS EN HTML
+========================= */
+
+const data = pitahayas[archivo];
+
+if (data) {
+    document.querySelector(".card-img img").src = data.imagen;
+    document.querySelector(".card-img h2").innerText = data.nombre;
+}
+
+/* =========================
+   OPCIONAL: VALORES DE EJEMPLO
+========================= */
+
+// Si luego quieres agregar valores reales:
+const valores = document.querySelectorAll(".item");
+
+valores.forEach((item, i) => {
+    item.innerHTML += " <strong>: ---</strong>"; 
+});
+
+
